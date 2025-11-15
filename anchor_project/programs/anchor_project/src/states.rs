@@ -4,8 +4,9 @@ use anchor_lang::prelude::*;
 #[derive(InitSpace)]
 pub struct Lottery {
     pub creator: Pubkey,
+    pub prize_vault: Pubkey,
     pub lottery_id: u8,
-    pub prize: u64,
+    pub prize_pot: u64,
     pub entry_price: u64,
     pub max_entries: u64,
     pub total_entries: u64,

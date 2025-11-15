@@ -1,6 +1,7 @@
 use crate::instructions::*;
 use anchor_lang::prelude::*;
 
+pub mod errors;
 pub mod instructions;
 pub mod states;
 
@@ -16,10 +17,14 @@ pub mod anchor_project {
         entry_price: u64,
         max_entries: u64,
     ) -> Result<()> {
-        initialize_lottery(ctx, lottery_id, entry_price, max_entries)
+        _initialize_lottery(ctx, lottery_id, entry_price, max_entries)
     }
 
     pub fn enter_lottery(ctx: Context<EnterLottery>) -> Result<()> {
-        enter_lottery(ctx)
+        _enter_lottery(ctx)
+    }
+
+    pub fn pick_winner(ctx: Context<PickWinner>) -> Result<()> {
+        _pick_winner(ctx)
     }
 }
