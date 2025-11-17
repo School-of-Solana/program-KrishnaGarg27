@@ -18,12 +18,11 @@ pub fn _claim_prize(ctx: Context<ClaimPrize>) -> Result<()> {
         winner_entry.owner == signer.key(),
         LotteryErrors::WinnerMismatch
     );
-    require!(
-        lottery.prize_pot <= prize_vault.to_account_info().lamports(),
-        LotteryErrors::PrizeClaimed
-    );
+    require!(!lottery.claimed, LotteryErrors::PrizeClaimed);
 
     let prize = lottery.prize_pot;
+    lottery.prize_pot = 0;
+    lottery.claimed = true;
     **signer.to_account_info().try_borrow_mut_lamports()? += prize;
     **prize_vault.to_account_info().try_borrow_mut_lamports()? -= prize;
 
@@ -36,7 +35,7 @@ pub struct ClaimPrize<'info> {
     pub signer: Signer<'info>,
     #[account()]
     pub winner_entry: Account<'info, Entry>,
-    #[account()]
+    #[account(mut)]
     pub lottery: Account<'info, Lottery>,
     #[account(mut, seeds = [b"vault", lottery.key().as_ref()],
         bump,)]

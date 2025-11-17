@@ -23,6 +23,7 @@ pub fn _initialize_lottery(
     lottery.max_entries = max_entries;
     lottery.total_entries = 0;
     lottery.winner = None;
+    lottery.claimed = false;
     lottery.bump = ctx.bumps.lottery;
 
     Ok(())

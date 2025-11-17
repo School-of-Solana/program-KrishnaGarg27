@@ -11,6 +11,7 @@ pub struct Lottery {
     pub max_entries: u64,
     pub total_entries: u64,
     pub winner: Option<Pubkey>,
+    pub claimed: bool,
     pub bump: u8,
 }
 
