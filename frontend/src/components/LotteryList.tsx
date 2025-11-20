@@ -3,7 +3,13 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../lib/anchor";
 import { LotteryItem } from "./LotteryItem";
 
-export default function LotteryList({ lotteries, setLotteries }) {
+export default function LotteryList({
+  lotteries,
+  setLotteries,
+}: {
+  lotteries: any;
+  setLotteries: any;
+}) {
   const { wallet, connected } = useWallet();
 
   const load = async () => {
@@ -19,7 +25,7 @@ export default function LotteryList({ lotteries, setLotteries }) {
   return (
     <div className="my-10 p-4 border rounded-xl border-green-400 hover:shadow-md hover:shadow-green-400">
       <h3 className="mb-4 text-green-400">All Lotteries</h3>
-      {lotteries.map((lottery) => (
+      {lotteries.map((lottery: any) => (
         <LotteryItem key={lottery.publicKey.toString()} lottery={lottery} />
       ))}
     </div>

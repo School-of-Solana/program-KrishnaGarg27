@@ -6,7 +6,7 @@ export default function PickWinnerButton({
   publicKey,
   wallet,
   updateLotteryAccount,
-}) {
+}: any) {
   const { provider } = getAnchorProgram(wallet.adapter);
   const creator = provider.wallet.publicKey;
   return (

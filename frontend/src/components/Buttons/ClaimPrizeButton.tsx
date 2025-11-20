@@ -7,7 +7,7 @@ export default function ClaimPrizeButton({
   publicKey,
   wallet,
   updateLotteryAccount,
-}) {
+}: any) {
   const [isWinner, setIsWinner] = useState(false);
 
   const { program, provider } = getAnchorProgram(wallet.adapter);
@@ -17,7 +17,9 @@ export default function ClaimPrizeButton({
     if (!(account as any).winner) return;
     (async () => {
       const winnerEntryPDA = account.winner;
-      const winnerEntryData = await program.account.entry.fetch(winnerEntryPDA);
+      const winnerEntryData = await (program.account as any).entry.fetch(
+        winnerEntryPDA
+      );
       if (winnerEntryData.owner.toString() === creator.toString()) {
         setIsWinner(true);
       }

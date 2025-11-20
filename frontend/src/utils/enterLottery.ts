@@ -1,8 +1,13 @@
 import { SystemProgram } from "@solana/web3.js";
+import type { PublicKey } from "@solana/web3.js";
 import { getAnchorProgram } from "../lib/anchor";
 import { deriveEntryPDA, derivePrizeVaultPDA } from "../lib/pda";
 
-export async function enterLottery(wallet, lotteryPDA, entryId) {
+export async function enterLottery(
+  wallet: any,
+  lotteryPDA: PublicKey,
+  entryId: number
+) {
   const { program, provider } = getAnchorProgram(wallet.adapter);
   const [prizeVaultPDA] = derivePrizeVaultPDA(program.programId, lotteryPDA);
   const [entryPDA] = deriveEntryPDA(program.programId, lotteryPDA, entryId);

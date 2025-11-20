@@ -5,7 +5,7 @@ export default function EnterLotteryButton({
   publicKey,
   wallet,
   updateLotteryAccount,
-}) {
+}: any) {
   return (
     <>
       {!(account as any).winner &&

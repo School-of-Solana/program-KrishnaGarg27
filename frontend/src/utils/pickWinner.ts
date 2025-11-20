@@ -1,6 +1,11 @@
+import type { PublicKey } from "@solana/web3.js";
 import { getAnchorProgram } from "../lib/anchor";
 
-export async function pickWinner(wallet, lotteryPDA, lotteryId) {
+export async function pickWinner(
+  wallet: any,
+  lotteryPDA: PublicKey,
+  lotteryId: number
+) {
   const { program, provider } = getAnchorProgram(wallet.adapter);
 
   await program.methods

@@ -5,7 +5,7 @@ import EnterLotteryButton from "./Buttons/EnterLotteryButton";
 import PickWinnerButton from "./Buttons/PickWinnerButton";
 import ClaimPrizeButton from "./Buttons/ClaimPrizeButton";
 
-export const LotteryItem = function ({ lottery }) {
+export const LotteryItem = function ({ lottery }: { lottery: any }) {
   const [account, setAccount] = useState(lottery.account);
   const publicKey = lottery.publicKey;
   const { wallet } = useWallet();
@@ -18,7 +18,7 @@ export const LotteryItem = function ({ lottery }) {
     : "Running";
 
   async function updateLotteryAccount() {
-    setAccount(await program.account.lottery.fetch(publicKey));
+    setAccount(await (program.account as any).lottery.fetch(publicKey));
   }
 
   return (

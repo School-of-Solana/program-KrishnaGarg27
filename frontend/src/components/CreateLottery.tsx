@@ -5,7 +5,13 @@ import { deriveLotteryPDA, derivePrizeVaultPDA } from "../lib/pda";
 import { SystemProgram } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 
-export const CreateLottery = ({ lotteries, setLotteries }) => {
+export const CreateLottery = ({
+  lotteries,
+  setLotteries,
+}: {
+  lotteries: any;
+  setLotteries: any;
+}) => {
   const { wallet, connected } = useWallet();
 
   const [lotteryId, setLotteryId] = useState(0);
@@ -67,7 +73,9 @@ export const CreateLottery = ({ lotteries, setLotteries }) => {
           systemProgram: SystemProgram.programId,
         })
         .rpc({ commitment: "confirmed" });
-      const lotteryData = await program.account.lottery.fetch(lotteryPDA);
+      const lotteryData = await (program.account as any).lottery.fetch(
+        lotteryPDA
+      );
       setLotteries([
         { publicKey: lotteryPDA, account: lotteryData },
         ...lotteries,
