@@ -1,23 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router'
-import './index.css'
-import { App } from './app.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import { AppWalletProvider } from "./provider/WalletProvider.tsx";
+import "./index.css";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <AppWalletProvider>
       <App />
-    </BrowserRouter>
-  </StrictMode>,
-)
-// Patch BigInt so we can log it using JSON.stringify without any errors
-declare global {
-  interface BigInt {
-    toJSON(): string
-  }
-}
-
-BigInt.prototype.toJSON = function () {
-  return this.toString()
-}
+    </AppWalletProvider>
+  </StrictMode>
+);

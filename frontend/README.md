@@ -1,88 +1,73 @@
-# frontend
+# React + TypeScript + Vite
 
-This is a Vite app containing:
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-- Tailwind CSS setup for styling
-- Useful wallet UI elements setup using [@solana/web3.js](https://www.npmjs.com/package/@solana/web3.js)
-- A basic Greeter Solana program written in Anchor
-- UI components for interacting with the Greeter program using the Anchor generated client
+Currently, two official plugins are available:
 
-## Getting Started
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Installation
+## React Compiler
 
-#### Download the template
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-```shell
-pnpm create solana-dapp@latest -t gh:solana-foundation/templates/web3js/frontend
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-#### Install Dependencies
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```shell
-pnpm install
-```
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## Apps
-
-### anchor
-
-This is a Solana program written in Rust using the Anchor framework.
-
-#### Commands
-
-You can use any normal anchor commands. Either move to the `anchor` directory and run the `anchor` command or prefix the
-command with `pnpm`, eg: `pnpm anchor`.
-
-#### Sync the program id:
-
-Running this command will create a new keypair in the `anchor/target/deploy` directory and save the address to the
-Anchor config file and update the `declare_id!` macro in the `./src/lib.rs` file of the program.
-
-You will manually need to update the constant in `anchor/lib/counter-exports.ts` to match the new program id.
-
-```shell
-pnpm anchor keys sync
-```
-
-#### Build the program:
-
-```shell
-pnpm anchor-build
-```
-
-#### Start the test validator with the program deployed:
-
-```shell
-pnpm anchor-localnet
-```
-
-#### Run the tests
-
-```shell
-pnpm anchor-test
-```
-
-#### Deploy to Devnet
-
-```shell
-pnpm anchor deploy --provider.cluster devnet
-```
-
-### web
-
-This is a React app that uses the Anchor generated client to interact with the Solana program.
-
-#### Commands
-
-Start the web app
-
-```shell
-pnpm dev
-```
-
-Build the web app
-
-```shell
-pnpm build
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
